@@ -24,6 +24,20 @@ public class Manager : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// 敵生成（1～3体用）
+    /// </summary>
+    /// <param name="1番目の敵（左）"></param>
+    /// <param name="2番目の敵（中）"></param>
+    /// <param name="3番目の敵（右）"></param>
+    void CreateEnemy(GameObject enemy1,GameObject enemy2,GameObject enemy3)
+    {
+        GameObject[] enemies = { enemy1, enemy2, enemy3 };
+        for(int i = 0;i < 3; i++)
+        {
+            if (enemies[i]) Instantiate(enemies[i]);
+        }
+    }
     void PlayerTargetting()//クリックしたエネミーをPlayerの攻撃対象とする
     {
         if (Input.GetMouseButtonDown(0))
