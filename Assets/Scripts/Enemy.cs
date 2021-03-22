@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public float attackTime;
     public int power,hp;//攻撃力,体力
-    public int listNum;//ターゲット管理用Listの位置番号
+    public int number;//ターゲット管理用Listの位置番号
     float attackTimer = 0;
     Manager manager;
     // Start is called before the first frame update
@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         this.Attack();
+        this.Deth();
+        //print(this.name + "のHP： " + this.hp);
     }
     void Attack()//"attackTime"時間おきにPlayerに"power"の攻撃
     {
@@ -28,6 +30,7 @@ public class Enemy : MonoBehaviour
         {
             Player.hp -= this.power;
             this.attackTimer = 0;
+            print("プレイヤーHP： " + Player.hp);
         }
     }
     void Deth()//hpが0以下で破壊、自動的に他のエネミーへターゲットを変更する
@@ -35,7 +38,9 @@ public class Enemy : MonoBehaviour
         if(this.hp <= 0)
         {
             Destroy(this.gameObject);
+            this.manager.currentEnemies[number] = null;//破壊する枠を置き換える
             this.manager.DefaultTargetting();
+            print(this.name + "死亡");
         }
     }
 }

@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.manager = GameObject.Find("Manager").GetComponent<Manager>();
+        this.manager = this.GetComponent<Manager>();
     }
 
     // Update is called once per frame
@@ -22,9 +22,10 @@ public class Player : MonoBehaviour
     /// <summary>
     /// targetに攻撃（ダメージ計算）
     /// </summary>
-    void Attack()
+    public void Attack()
     {
-        Enemy enemy = this.manager.enemyList[target].GetComponent<Enemy>();
+        Enemy enemy = this.manager.currentEnemies[target].GetComponent<Enemy>();
         enemy.hp -= this.power;
+        print(this.manager.currentEnemies[target].name + "のHP: " + enemy.hp);
     }
 }
