@@ -107,6 +107,7 @@ public class Manager : MonoBehaviour
 
         Player.target = 0;
         fase++;
+        this.stManager.DeletSticker();
         print("finish");
     }
 }

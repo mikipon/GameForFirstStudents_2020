@@ -42,11 +42,7 @@ public class StickerManager : MonoBehaviour
     /// </summary>
     public void DistributeSticker()
     {
-        for(int i = 0 ;i < this.distributedObj.Count;i++)
-        {
-            Destroy(this.distributedObj[i]);
-        }
-        this.distributedObj.Clear();
+        this.DeletSticker();
         this.CreateTheme();
 
         this.distributedSticker.Clear();
@@ -73,6 +69,14 @@ public class StickerManager : MonoBehaviour
             obj.GetComponent<SpriteRenderer>().sprite = this.stickerList[s];
         }
         print("お題： " + theme);
+    }
+    public void DeletSticker()//ゲーム上のステッカー全削除（お題含む）
+    {
+        for (int i = 0; i < this.distributedObj.Count; i++)
+        {
+            Destroy(this.distributedObj[i]);
+        }
+        this.distributedObj.Clear();
     }
     /// <summary>
     /// 選択画像がお題と一致するか
