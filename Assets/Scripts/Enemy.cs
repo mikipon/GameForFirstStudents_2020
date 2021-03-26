@@ -38,6 +38,7 @@ public class Enemy : Status
     {
         if(this.hp <= 0)
         {
+            this.hp = 0;
             Destroy(this.gameObject);
             this.manager.currentEnemies[number] = null;//破壊する枠を置き換える
             this.manager.DefaultTargetting();

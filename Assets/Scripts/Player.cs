@@ -28,8 +28,9 @@ public class Player : Status
     }
     void Deth()//hpが0以下で死亡、ゲームオーバー
     {
-        if (hp <= 0)
+        if (this.hp <= 0)
         {
+            this.hp = 0;
             print("ゲームオーバー");//ゲーム停止処理未実装
         }
     }
