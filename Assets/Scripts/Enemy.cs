@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Enemy : MonoBehaviour
+public class Enemy : Status
 {
     public float attackTime;
-    public int power,hp;//攻撃力,体力
     public int number;//ターゲット管理用Listの位置番号
     float attackTimer = 0;
     Manager manager;
+    Player player;
     // Start is called before the first frame update
     void Start()
     {
         this.manager = GameObject.Find("Manager").GetComponent<Manager>();
+        this.player = GameObject.Find("Manager").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -28,9 +29,9 @@ public class Enemy : MonoBehaviour
         this.attackTimer += Time.deltaTime;
         if (this.attackTimer >= attackTime)
         {
-            Player.hp -= this.power;
+            this.player.hp -= this.power;
             this.attackTimer = 0;
-            print("プレイヤーHP： " + Player.hp);
+            print("プレイヤーHP： " + this.player.hp);
         }
     }
     void Deth()//hpが0以下で破壊、自動的に他のエネミーへターゲットを変更する

@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Status
 {
-    public static int hp = 100;//プレイヤーhp
     public static int target = 0;//攻撃する敵の番号
-    public int power;
     Manager manager;
     // Start is called before the first frame update
     void Start()
