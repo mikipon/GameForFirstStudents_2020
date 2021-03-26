@@ -17,6 +17,8 @@ public class Manager : MonoBehaviour
     {
         this.stManager = this.GetComponent<StickerManager>();
         this.player = this.GetComponent<Player>();
+
+        fase = 5;
     }
 
     // Update is called once per frame
@@ -26,11 +28,31 @@ public class Manager : MonoBehaviour
         switch (fase)
         {
             case 0:
-                this.CreateEnemy(this.enemyList[0], this.enemyList[1], this.enemyList[2]);
-                stManager.DistributeSticker();
                 fase++;
                 break;
             case 1:
+                this.CreateEnemy(this.enemyList[0], this.enemyList[1], this.enemyList[0]);
+                stManager.DistributeSticker();
+                fase++;
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                this.CreateEnemy(this.enemyList[2], this.enemyList[3], this.enemyList[2]);
+                stManager.DistributeSticker();
+                fase++;
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                this.CreateEnemy(this.enemyList[3], this.enemyList[4], this.enemyList[2]);
+                stManager.DistributeSticker();
+                fase++;
+                break;
+            case 6:
+                //fase++;
                 break;
         }
     }
@@ -45,7 +67,7 @@ public class Manager : MonoBehaviour
         this.currentEnemies.Clear();
 
         GameObject[] enemies = { enemy1, enemy2, enemy3 };
-        Vector2[] enemyPos = {new Vector2(-10, 1.5f), new Vector2(0, 1.5f), new Vector2(10, 1.5f)};
+        Vector2[] enemyPos = {new Vector2(-4, 1.5f), new Vector2(0, 1.5f), new Vector2(4, 1.5f)};//3体のエネミーの位置
         for(int i = 0;i < enemies.Length; i++)
         {
             if (enemies[i])

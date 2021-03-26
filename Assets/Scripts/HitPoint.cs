@@ -17,6 +17,7 @@ public class HitPoint : MonoBehaviour
                 break;
             case "Enemy"://エネミー用なら、オブジェクトのタグを合わせてエネミーの子オブジェクトとしてシーン上に配置する
                 this.status = this.transform.parent.GetComponent<Enemy>();
+                print(this.transform.GetChild(0).name);
                 break;
         }
         this.maxHp = this.status.hp;
