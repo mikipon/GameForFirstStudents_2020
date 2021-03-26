@@ -8,7 +8,7 @@ public class Manager : MonoBehaviour
     /// ゲームの進行度
     /// </summary>
     public static int fase;
-    public GameObject[] enemyList;
+    public GameObject[] enemyList;//Unity側で追加
     public List<GameObject> currentEnemies = new List<GameObject>();//現ステージ残存エネミー
     StickerManager stManager;
     Player player;
