@@ -11,7 +11,11 @@ public class StickerManager : MonoBehaviour
     public Sprite[] stickerList;//スティッカー画像一覧
     public GameObject stickerObject;//スティッカーの基にするオブジェクト
     List<GameObject> distributedObj = new List<GameObject>();
-    Vector2[] positionList = {new Vector2(-8,-2), new Vector2(0,-2), new Vector2(8,-2)};//スティッカーを配置するときの位置
+    Vector2[] positionList = {  new Vector2(-8.0f, -3.5f), new Vector2(-7.3f, -1.7f), new Vector2(-6.0f, -4.0f),
+                                new Vector2(-5.5f, -2.5f), new Vector2(-4.5f, -1.5f), new Vector2(-4.0f, -3.5f),
+                                new Vector2(-2.5f, -1.2f), new Vector2(-2.0f, -3.7f), new Vector2(-0.9f, -2.4f),
+                                new Vector2( 0.5f, -3.9f), new Vector2( 0.8f, -1.6f), new Vector2( 2.0f, -3.0f),
+                                new Vector2( 2.7f, -1.3f), new Vector2( 3.5f, -4.0f), new Vector2( 4.0f, -2.0f)};//スティッカーを配置するときの位置
     List<int> distributedSticker = new List<int>();
 
     // Start is called before the first frame update
@@ -27,11 +31,12 @@ public class StickerManager : MonoBehaviour
     void CreateTheme()
     {
         theme = Random.Range(0, this.stickerList.Length);
-        GameObject obj = Instantiate(this.stickerObject, new Vector2(12,0), Quaternion.identity);//シルエット生成（位置はここで設定）
+        GameObject obj = Instantiate(this.stickerObject, new Vector2(7,-2), Quaternion.identity);//シルエット生成（位置はここで設定）
         this.distributedObj.Add(obj);
         obj.GetComponent<Sticker>().stickeNumber = -1;
         obj.GetComponent<SpriteRenderer>().sprite = this.stickerList[theme];
         obj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);//画像を黒くする
+        obj.transform.localScale = new Vector2(0.2f, 0.2f);
     }
     /// <summary>
     /// ステッカーを配置

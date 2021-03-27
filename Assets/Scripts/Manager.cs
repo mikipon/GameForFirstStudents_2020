@@ -11,10 +11,12 @@ public class Manager : MonoBehaviour
     public static bool action;//完全にフェードインするまで攻撃しないように
 
     public GameObject[] enemyList;//Unity側で追加
+    public Sprite[] BackgroundList;//Unity側で追加
     public List<GameObject> currentEnemies = new List<GameObject>();//現ステージ残存エネミー
     StickerManager stManager;
     Player player;
     NextStageAnim blackAnim;
+    SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class Manager : MonoBehaviour
         this.stManager = this.GetComponent<StickerManager>();
         this.player = this.GetComponent<Player>();
         this.blackAnim = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<NextStageAnim>();
+        this.spriteRenderer = this.GetComponent<SpriteRenderer>();
 
         fase = 0;
     }
@@ -33,11 +36,11 @@ public class Manager : MonoBehaviour
         switch (fase)
         {
             case 0:
-                
                 fase++;
                 break;
             case 1:
                 blackAnim.isFadeIn = true;
+                this.spriteRenderer.sprite = this.BackgroundList[0];
                 this.CreateEnemy(this.enemyList[0], this.enemyList[1], this.enemyList[0]);
                 stManager.DistributeSticker();
                 fase++;
@@ -47,6 +50,7 @@ public class Manager : MonoBehaviour
                 break;
             case 3:
                 blackAnim.isFadeIn = true;
+                this.spriteRenderer.sprite = this.BackgroundList[1];
                 this.CreateEnemy(this.enemyList[2], this.enemyList[3], this.enemyList[2]);
                 stManager.DistributeSticker();
                 fase++;
@@ -56,6 +60,7 @@ public class Manager : MonoBehaviour
                 break;
             case 5:
                 blackAnim.isFadeIn = true;
+                this.spriteRenderer.sprite = this.BackgroundList[2];
                 this.CreateEnemy(this.enemyList[3], this.enemyList[4], this.enemyList[2]);
                 stManager.DistributeSticker();
                 fase++;
