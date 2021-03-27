@@ -20,11 +20,7 @@ public class StickerManager : MonoBehaviour
         Random.InitState(System.DateTime.Now.Millisecond);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
     /// <summary>
     /// お題のシルエット生成
     /// </summary>

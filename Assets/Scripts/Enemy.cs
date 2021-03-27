@@ -20,8 +20,11 @@ public class Enemy : Status
     // Update is called once per frame
     void Update()
     {
-        this.Attack();
-        this.Deth();
+        if (Manager.action)
+        {
+            this.Attack();
+            this.Deth();
+        }
         //print(this.name + "のHP： " + this.hp);
     }
     void Attack()//"attackTime"時間おきにPlayerに"power"の攻撃

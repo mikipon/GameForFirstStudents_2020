@@ -5,15 +5,5 @@ using UnityEngine;
 public class Sticker : MonoBehaviour
 {
     public int stickeNumber = -1;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 50
-  power: 0
-  attackTime: 0
+  power: 1
+  attackTime: 10
   number: 0
 --- !u!1001 &6281534020918725004
 PrefabInstance:
