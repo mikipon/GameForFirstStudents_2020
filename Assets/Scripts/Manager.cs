@@ -42,7 +42,7 @@ public class Manager : MonoBehaviour
                 blackAnim.isFadeIn = true;
                 this.spriteRenderer.sprite = this.BackgroundList[0];
                 this.CreateEnemy(this.enemyList[0], this.enemyList[1], this.enemyList[0]);
-                stManager.DistributeSticker();
+                stManager.ResetSticker();
                 fase++;
                 break;
             case 2://戦闘フェーズ
@@ -52,7 +52,7 @@ public class Manager : MonoBehaviour
                 blackAnim.isFadeIn = true;
                 this.spriteRenderer.sprite = this.BackgroundList[1];
                 this.CreateEnemy(this.enemyList[2], this.enemyList[3], this.enemyList[2]);
-                stManager.DistributeSticker();
+                stManager.ResetSticker();
                 fase++;
                 break;
             case 4://戦闘フェーズ
@@ -62,7 +62,7 @@ public class Manager : MonoBehaviour
                 blackAnim.isFadeIn = true;
                 this.spriteRenderer.sprite = this.BackgroundList[2];
                 this.CreateEnemy(this.enemyList[3], this.enemyList[4], this.enemyList[2]);
-                stManager.DistributeSticker();
+                stManager.ResetSticker();
                 fase++;
                 break;
             case 6:
@@ -122,7 +122,7 @@ public class Manager : MonoBehaviour
                             {
                                 this.player.Attack();
                                 StickerManager.theme = -2;
-                                this.stManager.DistributeSticker();
+                                this.stManager.ResetSticker();
                             }
                         }
                         break;

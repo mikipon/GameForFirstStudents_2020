@@ -17,13 +17,19 @@ public class StickerManager : MonoBehaviour
                                 new Vector2( 0.5f, -3.9f), new Vector2( 0.8f, -1.6f), new Vector2( 2.0f, -3.0f),
                                 new Vector2( 2.7f, -1.3f), new Vector2( 3.5f, -4.0f), new Vector2( 4.0f, -2.0f)};//スティッカーを配置するときの位置
     List<int> distributedSticker = new List<int>();
-
+    bool isDistributeSticker = false;
     // Start is called before the first frame update
     void Start()
     {
         Random.InitState(System.DateTime.Now.Millisecond);
     }
-
+    void Update()
+    {
+        if (this.isDistributeSticker)
+        {
+            this.DistributeSticker();
+        }
+    }
 
     /// <summary>
     /// お題のシルエット生成
@@ -41,11 +47,15 @@ public class StickerManager : MonoBehaviour
     /// <summary>
     /// ステッカーを配置
     /// </summary>
-    public void DistributeSticker()
+    void DistributeSticker()
     {
-        this.DeletSticker();
-        this.CreateTheme();
+        for (int i = 0; i < this.distributedObj.Count; i++)
+        {
+            if (this.distributedObj[i] != null) return;//削除が完了していなければステッカーを生成しない
+        }
 
+        this.distributedObj.Clear();//破壊してnullにするだけじゃなく完全にリセット
+        this.CreateTheme();
         this.distributedSticker.Clear();
         int t = Random.Range(0, this.positionList.Length);//いつお題のシルエットを生成するかを決定
         int s;
@@ -69,15 +79,24 @@ public class StickerManager : MonoBehaviour
             obj.GetComponent<Sticker>().stickeNumber = s;
             obj.GetComponent<SpriteRenderer>().sprite = this.stickerList[s];
         }
+
+        this.isDistributeSticker = false;//ステッカーの配置は一回だけにしたい
         print("お題： " + theme);
     }
     public void DeletSticker()//ゲーム上のステッカー全削除（お題含む）
     {
         for (int i = 0; i < this.distributedObj.Count; i++)
         {
-            Destroy(this.distributedObj[i]);
+            this.distributedObj[i].GetComponent<Rigidbody2D>().gravityScale = 1;
+            this.distributedObj[i].GetComponent<Rigidbody2D>().AddForce(Vector2.up * 3, ForceMode2D.Impulse);
+            this.distributedObj[i].GetComponent<Sticker>().stickeNumber = -2;
+            //Destroy(this.distributedObj[i]);
         }
-        this.distributedObj.Clear();
+    }
+    public void ResetSticker()//ステッカーを再配置したい時に呼び出すメソッド
+    {
+        this.DeletSticker();
+        this.isDistributeSticker = true;
     }
     /// <summary>
     /// 選択画像がお題と一致するか

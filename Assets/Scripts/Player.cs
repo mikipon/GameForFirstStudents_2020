@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : Status
 {
     public static int target = 0;//攻撃する敵の番号
+    public GameObject[] charList;//Unityから代入（GameOver,GameClear文字）
+    public GameObject charTable;//文字をのせる台の当たり判定を操作
     Manager manager;
     // Start is called before the first frame update
     void Start()
@@ -31,7 +33,8 @@ public class Player : Status
         if (this.hp <= 0)
         {
             this.hp = 0;
-            print("ゲームオーバー");//ゲーム停止処理未実装
+            Instantiate(this.charList[0]);
+            this.charTable.GetComponent<BoxCollider2D>().enabled = true;//直前にオンにしないとステッカーをクリックできない時がある
         }
     }
 }
