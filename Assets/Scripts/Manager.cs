@@ -65,8 +65,10 @@ public class Manager : MonoBehaviour
                 stManager.ResetSticker();
                 fase++;
                 break;
-            case 6:
-                //fase++;
+            case 6://戦闘フェーズ
+
+                break;
+            case 7:
                 print("finish");
                 break;
         }
@@ -122,7 +124,7 @@ public class Manager : MonoBehaviour
                             {
                                 this.player.Attack();
                                 StickerManager.theme = -2;
-                                this.stManager.ResetSticker();
+                                if(CheckLivingEnemy())this.stManager.ResetSticker();//敵が全滅してたらリセットしない
                             }
                         }
                         break;
@@ -133,19 +135,29 @@ public class Manager : MonoBehaviour
     }
     public void DefaultTargetting()//デフォルトやターゲットしていた敵が死んだ時は左から順々に狙う、敵がいなければfaseを進める
     {
-        for(int i = 0;i < this.currentEnemies.Count; i++)
+        if (!CheckLivingEnemy())//敵が全滅してたら
+        {
+            Player.target = 0;
+            //print("finish");
+
+            this.stManager.DeletSticker();//ステッカーの破壊だけ行い、配置はしない
+            blackAnim.isFadeOut = true;//フェードアウトしてからフェーズを進める
+        }
+    }
+    /// <summary>
+    /// 敵の残存をチェック
+    /// </summary>
+    /// <returns true> 生きてる敵がいる</returns　false>生きている敵はいない
+    bool CheckLivingEnemy()//
+    {
+        for (int i = 0; i < this.currentEnemies.Count; i++)
         {
             if (this.currentEnemies[i] != null)
             {
                 Player.target = i;
-                return;
+                return true;
             }
         }
-
-        Player.target = 0;
-
-        this.stManager.DeletSticker();
-        blackAnim.isFadeOut = true;//フェードアウトしてからフェーズを進める
-        //print("finish");
+        return false;
     }
 }

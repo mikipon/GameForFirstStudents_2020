@@ -25,7 +25,7 @@ public class StickerManager : MonoBehaviour
     }
     void Update()
     {
-        if (this.isDistributeSticker)
+        if (this.isDistributeSticker && this.CheckDestroy())
         {
             this.DistributeSticker();
         }
@@ -49,12 +49,6 @@ public class StickerManager : MonoBehaviour
     /// </summary>
     void DistributeSticker()
     {
-        for (int i = 0; i < this.distributedObj.Count; i++)
-        {
-            if (this.distributedObj[i] != null) return;//削除が完了していなければステッカーを生成しない
-        }
-
-        this.distributedObj.Clear();//破壊してnullにするだけじゃなく完全にリセット
         this.CreateTheme();
         this.distributedSticker.Clear();
         int t = Random.Range(0, this.positionList.Length);//いつお題のシルエットを生成するかを決定
@@ -83,7 +77,7 @@ public class StickerManager : MonoBehaviour
         this.isDistributeSticker = false;//ステッカーの配置は一回だけにしたい
         print("お題： " + theme);
     }
-    public void DeletSticker()//ゲーム上のステッカー全削除（お題含む）
+    public void DeletSticker()//ゲーム上のステッカー全削除、落とすだけ（お題含む）
     {
         for (int i = 0; i < this.distributedObj.Count; i++)
         {
@@ -93,16 +87,25 @@ public class StickerManager : MonoBehaviour
             //Destroy(this.distributedObj[i]);
         }
     }
+    bool CheckDestroy()//ステッカーが全て破壊されたかチェックする。されていればListをクリアする。
+    {
+        for (int i = 0; i < this.distributedObj.Count; i++)
+        {
+            if (this.distributedObj[i] != null) return false;//削除が完了していなければステッカーを生成しない
+        }
+        this.distributedObj.Clear();//破壊してnullにするだけじゃなく完全にリセット
+        return true;
+    }
     public void ResetSticker()//ステッカーを再配置したい時に呼び出すメソッド
     {
-        this.DeletSticker();
+        if(!this.CheckDestroy())this.DeletSticker();//ステッカーがない状態から配置するときはいらない
         this.isDistributeSticker = true;
     }
     /// <summary>
     /// 選択画像がお題と一致するか
     /// </summary>
-    /// <param name="s"></param>一致
-    /// <returns></returns>不一致
+    /// <param name="s"></param>
+    /// <returns>一致</returns>不一致
     public bool CompareSticker(int s)
     {
         if (theme == s) return true;

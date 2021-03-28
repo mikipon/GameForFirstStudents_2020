@@ -43,7 +43,9 @@ public class Enemy : Status
         {
             this.hp = 0;
             Destroy(this.gameObject);
-            this.manager.currentEnemies[number] = null;//破壊する枠を置き換える
+            //this.manager.currentEnemies[number] = null;//Playerクラスで実行　
+            //プレイヤーが攻撃した段階でエネミーの生死が分からないとステッカーリセットが2重に行われる(Manager.cs:125)
+
             this.manager.DefaultTargetting();
             print(this.name + "死亡");
         }

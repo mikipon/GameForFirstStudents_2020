@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6639313679285821632}
   - component: {fileID: 6639313679285821639}
   - component: {fileID: -7133913174644180341}
+  - component: {fileID: 2326482175314882441}
   m_Layer: 8
   m_Name: enemy_big
   m_TagString: Enemy
@@ -100,6 +101,32 @@ MonoBehaviour:
   power: 25
   attackTime: 30
   number: 0
+--- !u!61 &2326482175314882441
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6639313679285821638}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 7.68, y: 10.24}
+    newSize: {x: 7.68, y: 10.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.68, y: 10.24}
+  m_EdgeRadius: 0
 --- !u!1001 &6639313678698921215
 PrefabInstance:
   m_ObjectHideFlags: 0
