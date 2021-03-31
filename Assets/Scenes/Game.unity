@@ -1390,6 +1390,8 @@ MonoBehaviour:
   - {fileID: 1957471021773961240, guid: 9ca93db50a2f8f14ea402cc2a73e506e, type: 3}
   - {fileID: 5333479775326870658, guid: 233944bc3a3827c41890787131bef5f0, type: 3}
   - {fileID: 6639313679285821638, guid: b6d8648bb6563ed40952d53fb2fe2c90, type: 3}
+  storyText: {fileID: 6860607786626100549, guid: a17f1ed0dc614e54da052fbe4ee2f23a,
+    type: 3}
   BackgroundList:
   - {fileID: 21300000, guid: f54a325e8a81c8743af543c66ff37cef, type: 3}
   - {fileID: 21300000, guid: ba099427e70960c49abd185097c579f6, type: 3}

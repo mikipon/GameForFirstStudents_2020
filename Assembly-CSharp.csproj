@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Sticker.cs" />
     <Compile Include="Assets\Scripts\StickerManager.cs" />
     <Compile Include="Assets\Scripts\TargettingMarkAnim.cs" />
+    <Compile Include="Assets\Scripts\TextController.cs" />
     <Compile Include="Assets\Scripts\TitleManager.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

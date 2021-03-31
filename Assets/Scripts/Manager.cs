@@ -11,6 +11,7 @@ public class Manager : MonoBehaviour
     public static bool action;//完全にフェードインするまで攻撃しないように
 
     public GameObject[] enemyList;//Unity側で追加
+    public GameObject storyText;//Unity側で追加Text3Line
     public Sprite[] BackgroundList;//Unity側で追加
     public List<GameObject> currentEnemies = new List<GameObject>();//現ステージ残存エネミー
     StickerManager stManager;
@@ -19,6 +20,7 @@ public class Manager : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public AudioClip[] sounds;
     AudioSource audioSource;
+    string[][] sentences = new string[2][];
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,13 @@ public class Manager : MonoBehaviour
         this.audioSource = this.GetComponent<AudioSource>();
 
         fase = 0;
+
+        this.sentences[0] = new string[3];
+        this.sentences[0][0] = "探しものをマウスでクリックして見つけよう！\n合っていれば攻撃できるぞ";
+        this.sentences[0][1] = "敵の攻撃時間に注意しよう";
+        this.sentences[0][2] = "出発だ";
+
+        this.DisplayText(0);
     }
 
     // Update is called once per frame
@@ -39,7 +48,7 @@ public class Manager : MonoBehaviour
         switch (fase)
         {
             case 0:
-                fase++;
+                //テキストが終わり次第、次のフェーズに進む
                 break;
             case 1:
                 blackAnim.isFadeIn = true;
@@ -172,5 +181,11 @@ public class Manager : MonoBehaviour
         this.audioSource.Play();
         yield return new WaitForSeconds(0.1f);
         this.audioSource.Stop();
+    }
+    void DisplayText(int index)//テキスト表示
+    {
+        GameObject obj = Instantiate(this.storyText);
+        TextController cmp = obj.transform.GetChild(0).GetChild(0).GetComponent<TextController>();
+        cmp.textContents = this.sentences[index];
     }
 }

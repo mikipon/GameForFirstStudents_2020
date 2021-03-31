@@ -72,7 +72,7 @@ public class NextStageAnim : MonoBehaviour
             alfa = 0;                   //透明度リセット
             SetAlpha();
             this.fadeStart = false;
-            this.StartCoroutine(this.StartSound());
+            if(Manager.fase < 7)this.StartCoroutine(this.StartSound());//最後のフェーズアウトは足音いらない
         }
 
         Manager.action = false;     //フェードアウトを始めたらプレイヤーがクリックできないようにする
