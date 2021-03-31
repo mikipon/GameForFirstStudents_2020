@@ -24,7 +24,7 @@ public class Manager : MonoBehaviour
     {
         action = false;
         this.stManager = this.GetComponent<StickerManager>();
-        this.player = this.GetComponent<Player>();
+        this.player = GameObject.Find("Player").GetComponent<Player>();
         this.blackAnim = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<NextStageAnim>();
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
         this.audioSource = this.GetComponent<AudioSource>();
@@ -45,7 +45,7 @@ public class Manager : MonoBehaviour
                 blackAnim.isFadeIn = true;
                 this.spriteRenderer.sprite = this.BackgroundList[0];
                 this.CreateEnemy(this.enemyList[0], this.enemyList[1], this.enemyList[0]);
-                stManager.ResetSticker();
+                //stManager.ResetSticker();フェードインしてからステッカーを配置に変更
                 fase++;
                 break;
             case 2://戦闘フェーズ
@@ -55,7 +55,6 @@ public class Manager : MonoBehaviour
                 blackAnim.isFadeIn = true;
                 this.spriteRenderer.sprite = this.BackgroundList[1];
                 this.CreateEnemy(this.enemyList[2], this.enemyList[3], this.enemyList[2]);
-                stManager.ResetSticker();
                 fase++;
                 break;
             case 4://戦闘フェーズ
@@ -65,7 +64,6 @@ public class Manager : MonoBehaviour
                 blackAnim.isFadeIn = true;
                 this.spriteRenderer.sprite = this.BackgroundList[2];
                 this.CreateEnemy(this.enemyList[3], this.enemyList[4], this.enemyList[2]);
-                stManager.ResetSticker();
                 fase++;
                 break;
             case 6://戦闘フェーズ
@@ -131,7 +129,7 @@ public class Manager : MonoBehaviour
                             }
                             else
                             {
-                                this.audioSource.PlayOneShot(this.sounds[0]);
+                                this.StartCoroutine(this.IncorrectSound());
                             }
                         }
                         break;
@@ -166,5 +164,13 @@ public class Manager : MonoBehaviour
             }
         }
         return false;
+    }
+    IEnumerator IncorrectSound()
+    {
+        this.audioSource.clip = this.sounds[0];
+        this.audioSource.time = 0.5f;
+        this.audioSource.Play();
+        yield return new WaitForSeconds(0.1f);
+        this.audioSource.Stop();
     }
 }

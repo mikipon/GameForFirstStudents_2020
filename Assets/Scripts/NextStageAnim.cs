@@ -15,7 +15,7 @@ public class NextStageAnim : MonoBehaviour
     bool fadeStart = true;              //フェードインアウトを始める前に一回だけパネルの透明度をリセットするための変数
 
     Image fadeImage;                    //透明度を変更するパネルのイメージ
-
+    StickerManager stManager;
     //public AudioClip sound;
     AudioSource audioSource;
 
@@ -25,6 +25,7 @@ public class NextStageAnim : MonoBehaviour
         fadeImage = GetComponent<Image>();
         this.audioSource = this.GetComponent<AudioSource>();
         //this.audioSource.clip = this.sound;
+        this.stManager = GameObject.Find("Manager").GetComponent<StickerManager>();
 
         red = fadeImage.color.r;
         green = fadeImage.color.g;
@@ -57,8 +58,9 @@ public class NextStageAnim : MonoBehaviour
         {
             isFadeIn = false;
             fadeImage.enabled = false;  //パネル表示オフ
-            Manager.action = true;
+            //Manager.action = true;ステッカーが配置し終わったら
 
+            this.stManager.ResetSticker();
             this.fadeStart = true;  
         }
     }

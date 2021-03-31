@@ -13,7 +13,7 @@ public class HitPoint : MonoBehaviour
         switch (this.gameObject.tag)
         {
             case "Player"://プレイヤー用なら、オブジェクトのタグを合わせてシーン上に配置する
-                this.status = GameObject.Find("Manager").GetComponent<Player>();
+                this.status = GameObject.Find("Player").GetComponent<Player>();
                 break;
             case "Enemy"://エネミー用なら、オブジェクトのタグを合わせてエネミーの子オブジェクトとしてシーン上に配置する
                 this.status = this.transform.parent.GetComponent<Enemy>();

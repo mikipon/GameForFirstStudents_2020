@@ -14,7 +14,7 @@ public class Enemy : Status
     void Start()
     {
         this.manager = GameObject.Find("Manager").GetComponent<Manager>();
-        this.player = GameObject.Find("Manager").GetComponent<Player>();
+        this.player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame

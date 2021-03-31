@@ -5,16 +5,17 @@ using UnityEngine;
 public class Player : Status
 {
     public static int target = 0;//攻撃する敵の番号
-    public AudioClip sound;
     public GameObject[] charList;//Unityから代入（GameOver,GameClear文字）
     public GameObject charTable;//文字をのせる台の当たり判定を操作
     public GameObject targettingMark;//Unityから代入
     Manager manager;
+
+    public AudioClip sound;
     AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
-        this.manager = this.GetComponent<Manager>();
+        this.manager = GameObject.Find("Manager").GetComponent<Manager>();
         this.audioSource = this.GetComponent<AudioSource>();
     }
 
@@ -29,6 +30,7 @@ public class Player : Status
     /// </summary>
     public void Attack()
     {
+        this.audioSource.volume = 0.5f;
         this.audioSource.PlayOneShot(this.sound);
         Enemy enemy = this.manager.currentEnemies[target].GetComponent<Enemy>();
         enemy.hp -= this.power;

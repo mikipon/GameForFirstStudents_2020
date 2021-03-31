@@ -30,7 +30,8 @@ public class StickerManager : MonoBehaviour
     {
         if (this.isDistributeSticker && this.CheckDestroy())
         {
-            this.DistributeSticker();
+            this.StartCoroutine(this.DistributeSticker());
+            this.isDistributeSticker = false;//ステッカーの配置は一回だけにしたい
         }
     }
 
@@ -40,23 +41,31 @@ public class StickerManager : MonoBehaviour
     void CreateTheme()
     {
         theme = Random.Range(0, this.stickerList.Length);
-        GameObject obj = Instantiate(this.stickerObject, new Vector2(7,-2), Quaternion.identity);//シルエット生成（位置はここで設定）
+        GameObject obj = Instantiate(this.stickerObject, new Vector2(7, -2.3f), Quaternion.identity);//シルエット生成（位置はここで設定）
         this.distributedObj.Add(obj);
         obj.GetComponent<Sticker>().stickeNumber = -1;
         obj.GetComponent<SpriteRenderer>().sprite = this.stickerList[theme];
         obj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);//画像を黒くする
         obj.transform.localScale = new Vector2(0.2f, 0.2f);
+
+        this.audioSource.volume = 0.2f;
+        this.audioSource.PlayOneShot(this.sounds[0]);
+
+        print("お題： " + theme);
     }
     /// <summary>
     /// ステッカーを配置
     /// </summary>
-    void DistributeSticker()
+    private IEnumerator DistributeSticker()
     {
         this.CreateTheme();
         this.distributedSticker.Clear();
-        this.audioSource.PlayOneShot(this.sounds[0]);
         int t = Random.Range(0, this.positionList.Length);//いつお題のシルエットを生成するかを決定
         int s;
+
+        yield return new WaitForSeconds(0.5f);
+
+        this.ShufflePosList(this.positionList);//座標が入っている配列の中身をシャッフル
         for (int i = 0;i < this.positionList.Length; i++)
         {
             if(i == t)
@@ -77,13 +86,17 @@ public class StickerManager : MonoBehaviour
             this.distributedObj.Add(obj);
             obj.GetComponent<Sticker>().stickeNumber = s;
             obj.GetComponent<SpriteRenderer>().sprite = this.stickerList[s];
+
+            this.audioSource.volume = 0.2f;
+            this.audioSource.PlayOneShot(this.sounds[0]);
+            yield return new WaitForSeconds(0.05f);
         }
 
-        this.isDistributeSticker = false;//ステッカーの配置は一回だけにしたい
-        print("お題： " + theme);
+        Manager.action = true;
     }
     public void DeletSticker()//ゲーム上のステッカー全削除、落とすだけ（お題含む）
     {
+        this.audioSource.volume = 1;
         this.audioSource.PlayOneShot(this.sounds[1]);
         for (int i = 0; i < this.distributedObj.Count; i++)
         {
@@ -116,5 +129,19 @@ public class StickerManager : MonoBehaviour
     {
         if (theme == s) return true;
         else return false;
+    }
+    void ShufflePosList(Vector2[] posList)//配列の中身をシャッフルする
+    {
+        for (int i = 0; i < posList.Length; i++)
+        {
+            //（説明１）現在の要素を預けておく
+            Vector2 temp = posList[i];
+            //（説明２）入れ替える先をランダムに選ぶ
+            int randomIndex = Random.Range(0, posList.Length);
+            //（説明３）現在の要素に上書き
+            posList[i] = posList[randomIndex];
+            //（説明４）入れ替え元に預けておいた要素を与える
+            posList[randomIndex] = temp;
+        }
     }
 }
