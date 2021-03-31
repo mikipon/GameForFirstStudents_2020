@@ -10,6 +10,8 @@ public class StickerManager : MonoBehaviour
     public static int theme;
     public Sprite[] stickerList;//スティッカー画像一覧
     public GameObject stickerObject;//スティッカーの基にするオブジェクト
+    public AudioClip[] sounds;
+    AudioSource audioSource;
     List<GameObject> distributedObj = new List<GameObject>();
     Vector2[] positionList = {  new Vector2(-8.0f, -3.5f), new Vector2(-7.3f, -1.7f), new Vector2(-6.0f, -4.0f),
                                 new Vector2(-5.5f, -2.5f), new Vector2(-4.5f, -1.5f), new Vector2(-4.0f, -3.5f),
@@ -22,6 +24,7 @@ public class StickerManager : MonoBehaviour
     void Start()
     {
         Random.InitState(System.DateTime.Now.Millisecond);
+        this.audioSource = this.GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -51,6 +54,7 @@ public class StickerManager : MonoBehaviour
     {
         this.CreateTheme();
         this.distributedSticker.Clear();
+        this.audioSource.PlayOneShot(this.sounds[0]);
         int t = Random.Range(0, this.positionList.Length);//いつお題のシルエットを生成するかを決定
         int s;
         for (int i = 0;i < this.positionList.Length; i++)
@@ -68,7 +72,8 @@ public class StickerManager : MonoBehaviour
             }
             
             this.distributedSticker.Add(s);
-            GameObject obj = Instantiate(this.stickerObject, this.positionList[i], Quaternion.identity);
+            Quaternion randomEulerZ = Quaternion.Euler(new Vector3(0, 0, 45 * Random.Range(0, 9)));
+            GameObject obj = Instantiate(this.stickerObject, this.positionList[i], randomEulerZ);
             this.distributedObj.Add(obj);
             obj.GetComponent<Sticker>().stickeNumber = s;
             obj.GetComponent<SpriteRenderer>().sprite = this.stickerList[s];
@@ -79,6 +84,7 @@ public class StickerManager : MonoBehaviour
     }
     public void DeletSticker()//ゲーム上のステッカー全削除、落とすだけ（お題含む）
     {
+        this.audioSource.PlayOneShot(this.sounds[1]);
         for (int i = 0; i < this.distributedObj.Count; i++)
         {
             this.distributedObj[i].GetComponent<Rigidbody2D>().gravityScale = 1;

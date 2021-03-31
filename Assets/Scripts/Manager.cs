@@ -17,6 +17,8 @@ public class Manager : MonoBehaviour
     Player player;
     NextStageAnim blackAnim;
     SpriteRenderer spriteRenderer;
+    public AudioClip[] sounds;
+    AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class Manager : MonoBehaviour
         this.player = this.GetComponent<Player>();
         this.blackAnim = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<NextStageAnim>();
         this.spriteRenderer = this.GetComponent<SpriteRenderer>();
+        this.audioSource = this.GetComponent<AudioSource>();
 
         fase = 0;
     }
@@ -125,6 +128,10 @@ public class Manager : MonoBehaviour
                                 this.player.Attack();
                                 StickerManager.theme = -2;
                                 if(CheckLivingEnemy())this.stManager.ResetSticker();//敵が全滅してたらリセットしない
+                            }
+                            else
+                            {
+                                this.audioSource.PlayOneShot(this.sounds[0]);
                             }
                         }
                         break;

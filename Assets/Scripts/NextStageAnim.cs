@@ -16,11 +16,17 @@ public class NextStageAnim : MonoBehaviour
 
     Image fadeImage;                    //透明度を変更するパネルのイメージ
 
+    //public AudioClip sound;
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         fadeImage = GetComponent<Image>();
-        red   = fadeImage.color.r;
+        this.audioSource = this.GetComponent<AudioSource>();
+        //this.audioSource.clip = this.sound;
+
+        red = fadeImage.color.r;
         green = fadeImage.color.g;
         blue  = fadeImage.color.b;
         alfa  = fadeImage.color.a;
@@ -40,6 +46,7 @@ public class NextStageAnim : MonoBehaviour
             alfa = 1;                   //透明度リセット
             SetAlpha();
             this.fadeStart = false;
+            this.StartCoroutine(this.StopSound());
         }
 
         this.isFadeOut = false;
@@ -63,6 +70,7 @@ public class NextStageAnim : MonoBehaviour
             alfa = 0;                   //透明度リセット
             SetAlpha();
             this.fadeStart = false;
+            this.StartCoroutine(this.StartSound());
         }
 
         Manager.action = false;     //フェードアウトを始めたらプレイヤーがクリックできないようにする
@@ -84,5 +92,15 @@ public class NextStageAnim : MonoBehaviour
     {
         //Debug.Log("透明度 : " + alfa);
         fadeImage.color = new Color(red, green, blue, alfa);
+    }
+    private IEnumerator StartSound()
+    {
+        yield return new WaitForSeconds(3);
+        this.audioSource.Play();
+    }
+    private IEnumerator StopSound()
+    {
+        yield return new WaitForSeconds(5);
+        this.audioSource.Stop();
     }
 }
