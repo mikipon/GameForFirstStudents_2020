@@ -21,7 +21,7 @@ public class TitleManager : MonoBehaviour
 
     void Start()
     {
-
+        Application.targetFrameRate = 60; //FPSを60に設定 
         //シード値変更
         Random.InitState(System.DateTime.Now.Millisecond);
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NextStageAnim : MonoBehaviour
 {
 
-    public float fadeSpeed  = 0.02f;    //透明度が変わるスピード
+    public float fadeSpeed;    //透明度が変わるスピード
     float red, green, blue, alfa;       //パネルの色と不透明度を管理
 
     public bool isFadeOut   = false;    //フェードアウト処理の開始や完了を管理する
@@ -97,12 +97,12 @@ public class NextStageAnim : MonoBehaviour
     }
     private IEnumerator StartSound()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         this.audioSource.Play();
     }
     private IEnumerator StopSound()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         this.audioSource.Stop();
     }
 }

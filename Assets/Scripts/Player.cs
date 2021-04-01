@@ -12,6 +12,8 @@ public class Player : Status
 
     public AudioClip sound;
     AudioSource audioSource;
+
+    bool gameover = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +44,13 @@ public class Player : Status
         if (this.hp <= 0)
         {
             this.hp = 0;
-            Instantiate(this.charList[0]);
-            this.charTable.GetComponent<BoxCollider2D>().enabled = true;//直前にオンにしないとステッカーをクリックできない時がある
+            Manager.action = false;
+            if (this.gameover)
+            {
+                Instantiate(this.charList[0]);
+                this.charTable.GetComponent<BoxCollider2D>().enabled = true;//直前にオンにしないとステッカーをクリックできない時がある
+                this.gameover = false;
+            }
         }
         else//プレイヤーが死んでないのにcharTableオブジェクトの当たり判定がオンになっていたらオフにする
         {

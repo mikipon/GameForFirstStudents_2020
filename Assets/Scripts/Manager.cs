@@ -24,6 +24,7 @@ public class Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60; //FPSを60に設定 
         action = false;
         this.stManager = this.GetComponent<StickerManager>();
         this.player = GameObject.Find("Player").GetComponent<Player>();
