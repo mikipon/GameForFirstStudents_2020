@@ -21,5 +21,9 @@ public class EnemyTimer : MonoBehaviour
         {
             this.animator.speed = 60 / this.enemy.attackTime;
         }
+        else
+        {
+            this.animator.speed = 0;
+        }
     }
 }

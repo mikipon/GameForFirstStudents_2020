@@ -39,13 +39,13 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
             }
         }
         //ボタンを押したら文を最後まで一気に表示
-        if (displayCharNum < textContents[textNum].Length && Input.GetKeyUp(KeyCode.Space))
+        if (displayCharNum < textContents[textNum].Length && Input.GetMouseButtonUp(0))
         {
             displayCharNum = textContents[textNum].Length - 1;
             text.text = textContents[textNum].Substring(0, displayCharNum);
         }
         //文字が全部表示されてボタンを押したら次の文が表示される
-        if (displayCharNum == textContents[textNum].Length && textNum < textContents.Length - 1 && Input.GetKeyUp(KeyCode.Space))
+        if (displayCharNum == textContents[textNum].Length && textNum < textContents.Length - 1 && Input.GetMouseButtonUp(0))
         {
             textNum++;
             displayCharNum = 0;
@@ -55,7 +55,7 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
     }
     void Finish()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetMouseButtonUp(0))
         {
             if (this.textNum >= this.textContents.Length - 1)
             {

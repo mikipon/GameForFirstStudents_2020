@@ -9,6 +9,10 @@ public class Manager : MonoBehaviour
     /// </summary>
     public static int fase;
     public static bool action;//完全にフェードインするまで攻撃しないように
+    /// <summary>
+    /// ステッカーを選択できるかどうか
+    /// </summary>
+    public static bool isStickerClick;
 
     public GameObject[] enemyList;//Unity側で追加
     public GameObject storyText;//Unity側で追加Text3Line
@@ -128,7 +132,7 @@ public class Manager : MonoBehaviour
                         }
                         break;
                     case 9:
-                        if (hit.transform.GetComponent<Sticker>())
+                        if (hit.transform.GetComponent<Sticker>() && isStickerClick)
                         {
                             print("選択したスティッカー： " + hit.transform.GetComponent<Sticker>().stickeNumber);
                             if (this.stManager.CompareSticker(hit.transform.GetComponent<Sticker>().stickeNumber))
