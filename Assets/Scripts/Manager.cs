@@ -167,7 +167,7 @@ public class Manager : MonoBehaviour
     /// 敵の残存をチェック
     /// </summary>
     /// <returns true> 生きてる敵がいる</returns　false>生きている敵はいない
-    bool CheckLivingEnemy()//
+    public bool CheckLivingEnemy()//
     {
         for (int i = 0; i < this.currentEnemies.Count; i++)
         {
