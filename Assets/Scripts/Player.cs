@@ -36,17 +36,10 @@ public class Player : Status
         this.audioSource.PlayOneShot(this.sound);
         Enemy enemy = this.manager.currentEnemies[target].GetComponent<Enemy>();
         enemy.hp -= this.power;
-        if(enemy.hp <= 0) this.manager.currentEnemies[enemy.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
-        else print(this.manager.currentEnemies[target].name + "のHP: " + enemy.hp);
 
-        if (this.manager.currentEnemies[target])
-        {
-            this.StartCoroutine(this.AttackEffect(this.manager.currentEnemies[target]));
-        }
-        else//敵が死んでいればエフェクトせずにリセット
-        {
-            if (manager.CheckLivingEnemy()) this.stManager.ResetSticker();//敵が全滅してたらリセットしない
-        }
+        this.StartCoroutine(this.AttackEffect(this.manager.currentEnemies[target]));
+        //print(this.manager.currentEnemies[target].name + "のHP: " + enemy.hp);
+
     }
     void Deth()//hpが0以下で死亡、ゲームオーバー
     {
@@ -87,6 +80,14 @@ public class Player : Status
         enemy.transform.position = temp;
         enemy.GetComponent<SpriteRenderer>().color = Color.white;
 
-        if (manager.CheckLivingEnemy()) this.stManager.ResetSticker();//敵が全滅してたらリセットしない
+        //ステッカーのリセットorデリート
+        if (manager.CheckLivingEnemy())
+        {
+            this.stManager.ResetSticker();//敵が全滅してたらリセットしない(エネミー側がやってくれるDeffautTargetting)
+        }
+        else
+        {
+            this.stManager.DeletSticker();//ステッカーの破壊だけ行い、配置はしない
+        }
     }
 }

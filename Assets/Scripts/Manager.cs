@@ -169,7 +169,6 @@ public class Manager : MonoBehaviour
             Player.target = 0;
             //print("finish");
 
-            this.stManager.DeletSticker();//ステッカーの破壊だけ行い、配置はしない
             blackAnim.isFadeOut = true;//フェードアウトしてからフェーズを進める
         }
     }
