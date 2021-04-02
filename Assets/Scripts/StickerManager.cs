@@ -106,7 +106,7 @@ public class StickerManager : MonoBehaviour
             //Destroy(this.distributedObj[i]);
         }
     }
-    public bool CheckDestroy()//ステッカーが全て破壊されたかチェックする。されていればListをクリアする。
+    bool CheckDestroy()//ステッカーが全て破壊されたかチェックする。されていればListをクリアする。
     {
         for (int i = 0; i < this.distributedObj.Count; i++)
         {

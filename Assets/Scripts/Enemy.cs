@@ -9,19 +9,17 @@ public class Enemy : Status
     public int number;//ターゲット管理用Listの位置番号
     float attackTimer = 0;
     float fallTimer = 0;
-    //float nullTimer = 0;
+    float fadeOutTimer = 0;
     Manager manager;
     Player player;
     NextStageAnim blackAnim;
-    StickerManager StickerManager;
     // Start is called before the first frame update
     void Start()
     {
         this.manager = GameObject.Find("Manager").GetComponent<Manager>();
         this.player = GameObject.Find("Player").GetComponent<Player>();
         this.blackAnim = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<NextStageAnim>();
-        this. StickerManager = GetComponent<StickerManager>();
-        this.blackAnim = GetComponent<NextStageAnim>();
+        //this.blackAnim = GetComponent<NextStageAnim>();
     }
 
     // Update is called once per frame
@@ -61,12 +59,13 @@ public class Enemy : Status
                 this.fallTimer = 0;
             }
 
-            //bool bo = StickerManager.CheckDestroy();
-            //Debug.Log("bool : " + bo);
+            bool bo = manager.CheckLivingEnemy();
+            Debug.Log("bool : " + manager.CheckLivingEnemy());
 
-            if (StickerManager.CheckDestroy())
+            this.fadeOutTimer += Time.deltaTime;
+            if (bo == false && this.fadeOutTimer >= 1.5)
             {
-                blackAnim.isFadeIn = true;
+                blackAnim.isFadeOut = true;
             }
         }
         //this.manager.currentEnemies[number] = null;//Playerクラスで実行　
