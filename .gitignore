@@ -4,3 +4,11 @@ Temp
 *.unityproj
 *.sln
 *.userprefs
+<<<<<<< Updated upstream
+=======
+.vs/GameForFirstStudents_2020/v16/.suo
+*.csproj
+Assembly-CSharp.csproj
+Assembly-CSharp.csproj
+obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
+>>>>>>> Stashed changes
