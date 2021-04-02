@@ -9,14 +9,19 @@ public class Enemy : Status
     public int number;//ターゲット管理用Listの位置番号
     float attackTimer = 0;
     float fallTimer = 0;
-    float nullTimer = 0;
+    //float nullTimer = 0;
     Manager manager;
     Player player;
+    NextStageAnim blackAnim;
+    StickerManager StickerManager;
     // Start is called before the first frame update
     void Start()
     {
         this.manager = GameObject.Find("Manager").GetComponent<Manager>();
         this.player = GameObject.Find("Player").GetComponent<Player>();
+        this.blackAnim = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<NextStageAnim>();
+        this. StickerManager = GetComponent<StickerManager>();
+        this.blackAnim = GetComponent<NextStageAnim>();
     }
 
     // Update is called once per frame
@@ -46,19 +51,27 @@ public class Enemy : Status
             this.hp = 0;
 
             beforeFalling();
-            this.manager.currentEnemies[this.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
+            //this.manager.currentEnemies[this.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
 
             this.fallTimer += Time.deltaTime;
             if (this.fallTimer >= 1.5)
             {
-                this.manager.DefaultTargetting();
+                //this.manager.DefaultTargetting();
                 Destroy(this.gameObject);
                 this.fallTimer = 0;
+            }
+
+            //bool bo = StickerManager.CheckDestroy();
+            //Debug.Log("bool : " + bo);
+
+            if (StickerManager.CheckDestroy())
+            {
+                blackAnim.isFadeIn = true;
             }
         }
         //this.manager.currentEnemies[number] = null;//Playerクラスで実行　
         //プレイヤーが攻撃した段階でエネミーの生死が分からないとステッカーリセットが2重に行われる(Manager.cs:125)
-        print(this.name + "死亡");
+        //print(this.name + "死亡");
     }
 
     /// <summary>

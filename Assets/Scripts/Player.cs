@@ -36,7 +36,9 @@ public class Player : Status
         this.audioSource.PlayOneShot(this.sound);
         Enemy enemy = this.manager.currentEnemies[target].GetComponent<Enemy>();
         enemy.hp -= this.power;
-        print(this.manager.currentEnemies[target].name + "のHP: " + enemy.hp);
+        if (enemy.hp <= 0) this.manager.currentEnemies[enemy.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
+        else print(this.manager.currentEnemies[target].name + "のHP: " + enemy.hp);
+        //print(this.manager.currentEnemies[target].name + "のHP: " + enemy.hp);
     }
     void Deth()//hpが0以下で死亡、ゲームオーバー
     {
