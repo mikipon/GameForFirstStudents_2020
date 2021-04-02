@@ -431,7 +431,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 57442f50590c82c4a90cae5c0d6fae81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -780,7 +780,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 480e79198bbf53245bb566b2c293b7a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -947,10 +947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  power: 50
-  charList:
-  - {fileID: 4905786218436769007, guid: 19cf2d48e1a49ac4ca3f0cd6cee10585, type: 3}
-  charTable: {fileID: 712615982}
+  power: 25
   targettingMark: {fileID: 361303351429004172}
   sound: {fileID: 8300000, guid: a315921c6b6093646a5e7c3cd62a23e3, type: 3}
 --- !u!1 &1454754899
@@ -1396,6 +1393,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f54a325e8a81c8743af543c66ff37cef, type: 3}
   - {fileID: 21300000, guid: ba099427e70960c49abd185097c579f6, type: 3}
   - {fileID: 21300000, guid: f4ae8bb1f61007142b77ae6c58b1bcc1, type: 3}
+  charList:
+  - {fileID: 4905786218436769007, guid: 19cf2d48e1a49ac4ca3f0cd6cee10585, type: 3}
+  - {fileID: 0}
+  charTable: {fileID: 712615982}
   currentEnemies: []
   sounds:
   - {fileID: 8300000, guid: 45ca19feb5f3615489f0389e486028dc, type: 3}

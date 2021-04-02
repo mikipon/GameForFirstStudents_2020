@@ -17,6 +17,9 @@ public class Manager : MonoBehaviour
     public GameObject[] enemyList;//Unity側で追加
     public GameObject storyText;//Unity側で追加Text3Line
     public Sprite[] BackgroundList;//Unity側で追加
+    public GameObject[] charList;//Unityから代入（GameOver,GameClear文字）
+    public GameObject charTable;//文字をのせる台の当たり判定を操作 UnityからCharTable
+
     public List<GameObject> currentEnemies = new List<GameObject>();//現ステージ残存エネミー
     StickerManager stManager;
     Player player;
@@ -24,7 +27,7 @@ public class Manager : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public AudioClip[] sounds;
     AudioSource audioSource;
-    string[][] sentences = new string[2][];
+    string[][] sentences = new string[3][];
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +47,13 @@ public class Manager : MonoBehaviour
         this.sentences[0][2] = "出発だ";
 
         this.DisplayText(0);
+
+        this.sentences[1] = new string[1];
+        this.sentences[1][0] = "「ゲームオーバー」\nマウス左クリックでタイトルに戻る";
+
+        this.sentences[2] = new string[2];
+        this.sentences[2][0] = "何とか無事に森を抜けられそうだ\nTo be continued?";
+        this.sentences[2][1] = "「ゲームクリア」\nマウス左クリックでタイトルに戻る";
     }
 
     // Update is called once per frame
@@ -139,7 +149,7 @@ public class Manager : MonoBehaviour
                             {
                                 this.player.Attack();
                                 StickerManager.theme = -2;
-                                if(CheckLivingEnemy())this.stManager.ResetSticker();//敵が全滅してたらリセットしない
+                                
                             }
                             else
                             {
@@ -167,7 +177,7 @@ public class Manager : MonoBehaviour
     /// 敵の残存をチェック
     /// </summary>
     /// <returns true> 生きてる敵がいる</returns　false>生きている敵はいない
-    bool CheckLivingEnemy()//
+    public bool CheckLivingEnemy()//
     {
         for (int i = 0; i < this.currentEnemies.Count; i++)
         {
@@ -192,5 +202,12 @@ public class Manager : MonoBehaviour
         GameObject obj = Instantiate(this.storyText);
         TextController cmp = obj.transform.GetChild(0).GetChild(0).GetComponent<TextController>();
         cmp.textContents = this.sentences[index];
+    }
+    public IEnumerator GameOver()
+    {
+        Instantiate(this.charList[0]);
+        this.charTable.GetComponent<BoxCollider2D>().enabled = true;//直前にオンにしないとステッカーをクリックできない時がある
+        yield return new WaitForSeconds(2);
+        this.DisplayText(1);
     }
 }

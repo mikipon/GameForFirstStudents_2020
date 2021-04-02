@@ -44,6 +44,7 @@ public class NextStageAnim : MonoBehaviour
     {
         if (this.fadeStart)
         {
+            fadeImage.color = Color.black;
             alfa = 1;                   //透明度リセット
             SetAlpha();
             this.fadeStart = false;
@@ -51,13 +52,13 @@ public class NextStageAnim : MonoBehaviour
         }
 
         this.isFadeOut = false;
-        fadeImage.enabled = true;       //パネルの表示オン
+        //fadeImage.enabled = true;       //パネルの表示オン
         alfa -= fadeSpeed;              //不透明度を少しづつ下げる
         SetAlpha();                     //パネルに反映
         if(alfa <= 0)                   //完全に透明になったら抜ける
         {
             isFadeIn = false;
-            fadeImage.enabled = false;  //パネル表示オフ
+            //fadeImage.enabled = false;  //パネル表示オフ
             //Manager.action = true;ステッカーが配置し終わったら
 
             this.stManager.ResetSticker();
@@ -69,6 +70,7 @@ public class NextStageAnim : MonoBehaviour
     {
         if (this.fadeStart)
         {
+            fadeImage.color = Color.black;
             alfa = 0;                   //透明度リセット
             SetAlpha();
             this.fadeStart = false;
@@ -78,14 +80,13 @@ public class NextStageAnim : MonoBehaviour
         Manager.action = false;     //フェードアウトを始めたらプレイヤーがクリックできないようにする
 
         this.isFadeIn = false;
-        fadeImage.enabled = true;   //パネルの表示オン
+        //fadeImage.enabled = true;   //パネルの表示オン
         alfa += fadeSpeed;          //不透明度を上げる
         SetAlpha();                 //透明度を反映
         if(alfa >= 1)               //完全に不透明になったら抜ける
         {
             isFadeOut = false;
             Manager.fase++;         //フェードアウトしてからフェーズを進めるため
-
             this.fadeStart = true;
         }
     }

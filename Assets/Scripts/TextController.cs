@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TextController : MonoBehaviour//オブジェクトの生成と同時にtextContentsを代入することでテキストを流せる
 {
@@ -38,29 +39,44 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
                 text.text = textContents[textNum].Substring(0, displayCharNum);
             }
         }
-        //ボタンを押したら文を最後まで一気に表示
+        
         if (displayCharNum < textContents[textNum].Length && Input.GetMouseButtonUp(0))
         {
-            displayCharNum = textContents[textNum].Length - 1;
-            text.text = textContents[textNum].Substring(0, displayCharNum);
+            
+            //後からやらないとボタン連打した時に正しく表示されない
         }
-        //文字が全部表示されてボタンを押したら次の文が表示される
-        if (displayCharNum == textContents[textNum].Length && textNum < textContents.Length - 1 && Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
-            textNum++;
-            displayCharNum = 0;
-            progressTime = 0;
-            text.text = textContents[textNum].Substring(0, displayCharNum);
+            if(displayCharNum < textContents[textNum].Length)//ボタンを押したら文を最後まで一気に表示
+            {
+                displayCharNum = textContents[textNum].Length;
+                text.text = textContents[textNum].Substring(0, displayCharNum);
+            }
+            else if(textNum < textContents.Length - 1)//文字が全部表示されてボタンを押したら次の文が表示される
+            {
+                displayCharNum = 0;
+                progressTime = 0;
+                textNum++;
+                text.text = textContents[textNum].Substring(0, displayCharNum);
+            }
         }
     }
-    void Finish()
+    void Finish()//テキスト終わりに起こすアクション
     {
         if (Input.GetMouseButtonUp(0))
         {
-            if (this.textNum >= this.textContents.Length - 1)
+            if (this.textNum >= this.textContents.Length - 1 && displayCharNum == textContents[textNum].Length)
             {
-                Destroy(transform.parent.parent.gameObject);
-                Manager.fase++;
+                switch (Manager.fase)
+                {
+                    case 0:
+                        Destroy(transform.parent.parent.gameObject);
+                        Manager.fase++;
+                        break;
+                    default:
+                        SceneManager.LoadScene("Title");
+                        break;
+                }
             }
         }
     }

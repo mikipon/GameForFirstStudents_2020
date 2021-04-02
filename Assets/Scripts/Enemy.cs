@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class Enemy : Status
 {
@@ -10,11 +10,13 @@ public class Enemy : Status
     float attackTimer = 0;
     Manager manager;
     Player player;
+    Image panelImage; 
     // Start is called before the first frame update
     void Start()
     {
         this.manager = GameObject.Find("Manager").GetComponent<Manager>();
         this.player = GameObject.Find("Player").GetComponent<Player>();
+        this.panelImage = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -34,6 +36,7 @@ public class Enemy : Status
         {
             this.player.hp -= this.power;
             this.attackTimer = 0;
+            this.StartCoroutine(this.AttackEffect());
             print("プレイヤーHP： " + this.player.hp);
         }
     }
@@ -49,5 +52,20 @@ public class Enemy : Status
             this.manager.DefaultTargetting();
             print(this.name + "死亡");
         }
+    }
+    IEnumerator AttackEffect()
+    {
+        this.panelImage.color = new Color(1, 0, 0, 0);
+        for(float i = 0; i <= 0.5f; i+=0.05f)
+        {
+            this.panelImage.color = new Color(1, 0, 0, i);
+            yield return new WaitForSeconds(0.025f);
+        }
+        for (float i = 0.5f; i >= 0; i -= 0.05f)
+        {
+            this.panelImage.color = new Color(1, 0, 0, i);
+            yield return new WaitForSeconds(0.025f);
+        }
+        this.panelImage.color = new Color(1, 0, 0, 0);
     }
 }

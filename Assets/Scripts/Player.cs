@@ -5,10 +5,9 @@ using UnityEngine;
 public class Player : Status
 {
     public static int target = 0;//攻撃する敵の番号
-    public GameObject[] charList;//Unityから代入（GameOver,GameClear文字）
-    public GameObject charTable;//文字をのせる台の当たり判定を操作
     public GameObject targettingMark;//Unityから代入
     Manager manager;
+    StickerManager stManager;
 
     public AudioClip sound;
     AudioSource audioSource;
@@ -18,6 +17,7 @@ public class Player : Status
     void Start()
     {
         this.manager = GameObject.Find("Manager").GetComponent<Manager>();
+        this.stManager = GameObject.Find("Manager").GetComponent<StickerManager>();
         this.audioSource = this.GetComponent<AudioSource>();
     }
 
@@ -38,6 +38,15 @@ public class Player : Status
         enemy.hp -= this.power;
         if(enemy.hp <= 0) this.manager.currentEnemies[enemy.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
         else print(this.manager.currentEnemies[target].name + "のHP: " + enemy.hp);
+
+        if (this.manager.currentEnemies[target])
+        {
+            this.StartCoroutine(this.AttackEffect(this.manager.currentEnemies[target]));
+        }
+        else//敵が死んでいればエフェクトせずにリセット
+        {
+            if (manager.CheckLivingEnemy()) this.stManager.ResetSticker();//敵が全滅してたらリセットしない
+        }
     }
     void Deth()//hpが0以下で死亡、ゲームオーバー
     {
@@ -47,14 +56,9 @@ public class Player : Status
             Manager.action = false;
             if (this.gameover)
             {
-                Instantiate(this.charList[0]);
-                this.charTable.GetComponent<BoxCollider2D>().enabled = true;//直前にオンにしないとステッカーをクリックできない時がある
+                this.StartCoroutine(this.manager.GameOver());
                 this.gameover = false;
             }
-        }
-        else//プレイヤーが死んでないのにcharTableオブジェクトの当たり判定がオンになっていたらオフにする
-        {
-            if (this.charTable.GetComponent<BoxCollider2D>().enabled) this.charTable.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
     void Targetting()//ターゲットマークの調整
@@ -68,5 +72,21 @@ public class Player : Status
         {
             this.targettingMark.SetActive(false);
         }
+    }
+    IEnumerator AttackEffect(GameObject enemy)//エネミー被弾時のモーション
+    {
+        enemy.GetComponent<SpriteRenderer>().color = Color.red;
+        Vector3 temp = enemy.transform.position;
+        for (int i = 0; i < 10; i++)
+        {
+            enemy.transform.position = temp + new Vector3(0.05f, 0);
+            yield return new WaitForSeconds(0.02f);
+            enemy.transform.position = temp - new Vector3(0.05f, 0);
+            yield return new WaitForSeconds(0.02f);
+        }
+        enemy.transform.position = temp;
+        enemy.GetComponent<SpriteRenderer>().color = Color.white;
+
+        if (manager.CheckLivingEnemy()) this.stManager.ResetSticker();//敵が全滅してたらリセットしない
     }
 }
