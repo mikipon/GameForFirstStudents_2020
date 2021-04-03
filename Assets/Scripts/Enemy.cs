@@ -11,13 +11,15 @@ public class Enemy : Status
     float fallTimer = 0;
     Manager manager;
     Player player;
-    Image panelImage; 
+    Image panelImage;
+    AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         this.manager = GameObject.Find("Manager").GetComponent<Manager>();
         this.player = GameObject.Find("Player").GetComponent<Player>();
         this.panelImage = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<Image>();
+        this.audioSource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,10 @@ public class Enemy : Status
             this.player.hp -= this.power;
             this.attackTimer = 0;
             this.StartCoroutine(this.AttackEffect());
+
+            this.audioSource.volume = 0.5f;
+            this.audioSource.PlayOneShot(this.audioSource.clip);
+
             print("プレイヤーHP： " + this.player.hp);
         }
     }

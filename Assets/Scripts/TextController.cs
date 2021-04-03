@@ -10,6 +10,7 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
     Text text;
     public int textNum,displayCharNum;//何文目//表示されている文字数
     float progressTime;//一文字が出るのにかかる時間
+    public static bool nextText;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
         text = this.GetComponent<Text>();
         textNum = 0;
         text.text = textContents[textNum].Substring(0, displayCharNum);
+        nextText = false;
     }
 
     // Update is called once per frame
@@ -52,7 +54,7 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
                 displayCharNum = textContents[textNum].Length;
                 text.text = textContents[textNum].Substring(0, displayCharNum);
             }
-            else if(textNum < textContents.Length - 1)//文字が全部表示されてボタンを押したら次の文が表示される
+            else if(textNum < textContents.Length - 1 && nextText)//文字が全部表示されてボタンを押したら次の文が表示される
             {
                 displayCharNum = 0;
                 progressTime = 0;

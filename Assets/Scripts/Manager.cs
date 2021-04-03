@@ -153,6 +153,7 @@ public class Manager : MonoBehaviour
                             }
                             else
                             {
+                                this.audioSource.volume = 1;
                                 this.StartCoroutine(this.IncorrectSound());
                             }
                         }

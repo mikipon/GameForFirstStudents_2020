@@ -34,6 +34,7 @@ public class Player : Status
     {
         this.audioSource.volume = 0.5f;
         this.audioSource.PlayOneShot(this.sound);
+
         Enemy enemy = this.manager.currentEnemies[target].GetComponent<Enemy>();
         enemy.hp -= this.power;
 
