@@ -97,7 +97,7 @@ public class StickerManager : MonoBehaviour
     }
     public void DeletSticker()//ゲーム上のステッカー全削除、落とすだけ（お題含む）
     {
-        Manager.isStickerClick = false;
+        //Manager.isStickerClick = false;//Playerが攻撃した時に変更
         this.audioSource.volume = 1;
         this.audioSource.PlayOneShot(this.sounds[1]);
         for (int i = 0; i < this.distributedObj.Count; i++)

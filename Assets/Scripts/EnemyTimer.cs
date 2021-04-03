@@ -17,7 +17,7 @@ public class EnemyTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Manager.action)
+        if (Manager.action && this.enemy.hp > 0)
         {
             this.animator.speed = 60 / this.enemy.attackTime;
         }

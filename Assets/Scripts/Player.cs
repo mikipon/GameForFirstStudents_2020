@@ -39,6 +39,7 @@ public class Player : Status
         enemy.hp -= this.power;
 
         this.StartCoroutine(this.AttackEffect(this.manager.currentEnemies[target]));
+        Manager.isStickerClick = false;//攻撃エフェクトが出ている間はステッカーが削除されないのでその時にクリックされないように(音がでる)
         //print(this.manager.currentEnemies[target].name + "のHP: " + enemy.hp);
 
     }

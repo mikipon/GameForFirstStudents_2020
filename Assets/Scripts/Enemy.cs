@@ -27,8 +27,8 @@ public class Enemy : Status
     {
         if (Manager.action)
         {
-            this.Attack();
-            this.Deth();
+            if(this.hp > 0) this.Attack();
+            else this.Deth();
         }
         //print(this.name + "のHP： " + this.hp);
     }
@@ -49,25 +49,22 @@ public class Enemy : Status
     }
     void Deth()//hpが0以下で破壊、自動的に他のエネミーへターゲットを変更する
     {
-        if (this.hp <= 0)
+        this.manager.currentEnemies[this.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
+        this.hp = 0;
+
+        beforeFalling();
+
+        //1.5秒点滅した後に破壊
+        this.fallTimer += Time.deltaTime;
+        if (this.fallTimer >= 1.5)
         {
-            this.manager.currentEnemies[this.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
-            this.hp = 0;
 
-            beforeFalling();
+            Destroy(this.gameObject);
+            this.fallTimer = 0;
 
-            //1.5秒点滅した後に破壊
-            this.fallTimer += Time.deltaTime;
-            if (this.fallTimer >= 1.5)
-            {
-                
-                Destroy(this.gameObject);
-                this.fallTimer = 0;
-
-                this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
-            }
-            //print(this.name + "死亡");
+            this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
         }
+        //print(this.name + "死亡");
     }
 
     /// <summary>

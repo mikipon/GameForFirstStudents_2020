@@ -699,7 +699,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: d052f045673cbd44ab52b495b7d02ac4, type: 3}
   m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
   m_FlipX: 0
@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  power: 25
+  power: 50
   targettingMark: {fileID: 361303351429004172}
   sound: {fileID: 8300000, guid: a315921c6b6093646a5e7c3cd62a23e3, type: 3}
 --- !u!1 &1454754899
@@ -1303,8 +1303,8 @@ Canvas:
   m_GameObject: {fileID: 1691803099}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 2
+  m_Camera: {fileID: 1567430260}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1313,7 +1313,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &1691803103
 RectTransform:
@@ -1324,7 +1324,7 @@ RectTransform:
   m_GameObject: {fileID: 1691803099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 1059847109}
   m_Father: {fileID: 0}
@@ -1332,9 +1332,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 480, y: 270}
+  m_SizeDelta: {x: 1066.6667, y: 600}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1707553082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f4ae8bb1f61007142b77ae6c58b1bcc1, type: 3}
   charList:
   - {fileID: 4905786218436769007, guid: 19cf2d48e1a49ac4ca3f0cd6cee10585, type: 3}
-  - {fileID: 0}
+  - {fileID: 8415736980767557795, guid: 8372f9f0fddf6644b98250871b563980, type: 3}
   charTable: {fileID: 712615982}
   currentEnemies: []
   sounds:

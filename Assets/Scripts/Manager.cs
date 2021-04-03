@@ -13,7 +13,7 @@ public class Manager : MonoBehaviour
     /// ステッカーを選択できるかどうか
     /// </summary>
     public static bool isStickerClick;
-
+    
     public GameObject[] enemyList;//Unity側で追加
     public GameObject storyText;//Unity側で追加Text3Line
     public Sprite[] BackgroundList;//Unity側で追加
@@ -51,7 +51,7 @@ public class Manager : MonoBehaviour
         this.sentences[1] = new string[1];
         this.sentences[1][0] = "「ゲームオーバー」\nマウス左クリックでタイトルに戻る";
 
-        this.sentences[2] = new string[2];
+        this.sentences[2] = new string[2];//文増やすならTextControllerのイベントプログラムを変更する必要あり、Manager上のisNextText変数への代入も
         this.sentences[2][0] = "何とか無事に森を抜けられそうだ\nTo be continued?";
         this.sentences[2][1] = "「ゲームクリア」\nマウス左クリックでタイトルに戻る";
     }
@@ -94,7 +94,12 @@ public class Manager : MonoBehaviour
 
                 break;
             case 7:
-                print("finish");
+                //print("finish");
+                this.DisplayText(2);
+                TextController.isNextText = false;
+                fase++;
+                break;
+            case 8:
                 break;
         }
     }
@@ -209,5 +214,18 @@ public class Manager : MonoBehaviour
         this.charTable.GetComponent<BoxCollider2D>().enabled = true;//直前にオンにしないとステッカーをクリックできない時がある
         yield return new WaitForSeconds(2);
         this.DisplayText(1);
+    }
+    public IEnumerator GameClear(TextController tc)
+    {
+        GameObject obj = Instantiate(this.charList[1]);
+        SpriteRenderer spr = obj.GetComponent<SpriteRenderer>();
+        spr.color = new Color(1, 1, 1, 0);//透明化
+        for(int i = 1; i <= 20; i++)
+        {
+            spr.color = new Color(1, 1, 1, 1.0f / 20.0f * i);
+            yield return new WaitForSeconds(0.1f);
+        }
+        TextController.isNextText = true;
+        tc.NextText();//自動的に次のテキストを表示
     }
 }
