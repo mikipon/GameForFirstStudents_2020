@@ -50,19 +50,39 @@ public class Enemy : Status
     void Deth()//hpが0以下で破壊、自動的に他のエネミーへターゲットを変更する
     {
         this.manager.currentEnemies[this.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
+
+        //子オブジェクトを全て削除
+        foreach (Transform child in this.gameObject.transform)
+            Destroy(child.gameObject);
+
         this.hp = 0;
 
-        beforeFalling();
-
-        //1.5秒点滅した後に破壊
-        this.fallTimer += Time.deltaTime;
-        if (this.fallTimer >= 1.5)
+        //ボスの死に方
+        if (this.tag == "Boss")
         {
+            //回転と移動
+            Rigidbody2D rigidbody2D = this.GetComponent<Rigidbody2D>();
+            rigidbody2D.angularVelocity = 1000;
+            this.transform.position += new Vector3(1, 1, 0) * 0.2f;
 
-            Destroy(this.gameObject);
-            this.fallTimer = 0;
+            //画面外に出たら
+            if(!GetComponent<Renderer>().isVisible)
+                this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
+        }
+        else {
 
-            this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
+            //点滅
+            beforeFalling();
+
+            //1.5秒点滅した後に破壊
+            this.fallTimer += Time.deltaTime;
+            if (this.fallTimer >= 1.5)
+            {
+                Destroy(this.gameObject);
+                this.fallTimer = 0;
+
+                this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
+            }
         }
         //print(this.name + "死亡");
     }
