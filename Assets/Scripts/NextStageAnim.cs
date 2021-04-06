@@ -17,7 +17,7 @@ public class NextStageAnim : MonoBehaviour
     Image fadeImage;                    //透明度を変更するパネルのイメージ
     StickerManager stManager;
     //public AudioClip sound;
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +74,7 @@ public class NextStageAnim : MonoBehaviour
             alfa = 0;                   //透明度リセット
             SetAlpha();
             this.fadeStart = false;
-            if(Manager.fase < 6)this.StartCoroutine(this.StartSound());//最後のフェーズアウトは足音いらない
+            if(Manager.fase < 8)this.StartCoroutine(this.StartSound());//最後のフェーズアウトは足音いらない
         }
 
         Manager.action = false;     //フェードアウトを始めたらプレイヤーがクリックできないようにする

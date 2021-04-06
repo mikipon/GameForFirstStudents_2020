@@ -49,7 +49,7 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
         }
         else
         {
-            if (this.isEvent) this.TextEvent();
+            if (this.isEvent) this.OnTheWayEvent();//一回だけ実行
         }
         
         if (Input.GetMouseButtonUp(0))
@@ -65,7 +65,7 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
             }
             else
             {
-                this.Finish();
+                this.FinishEvent();
             }
         }
     }
@@ -78,7 +78,7 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
 
         this.isEvent = true;
     }
-    void Finish()//テキスト終わりに起こすアクション
+    void FinishEvent()//テキスト終わりに起こすアクション
     {
         if (this.textNum >= this.textContents.Length - 1 && displayCharNum == textContents[textNum].Length)
         {
@@ -88,21 +88,32 @@ public class TextController : MonoBehaviour//オブジェクトの生成と同�
                     Destroy(transform.parent.parent.gameObject);
                     Manager.fase++;
                     break;
+                case 6:
+                    Destroy(transform.parent.parent.gameObject);
+                    Manager.fase++;
+                    manager.blackAnim.audioSource.Play();
+                    break;
                 default:
                     SceneManager.LoadScene("Title");
                     break;
             }
         }
     }
-    void TextEvent()//基本的な会話以外のイベント
+    void OnTheWayEvent()//会話途中のイベント
     {
-        if(Manager.fase == 8)
+        switch (Manager.fase)
         {
-            if(this.textNum == 0)
-            {
-                this.StartCoroutine(this.manager.GameClear(this.GetComponent<TextController>()));
-            }
+            case 6:
+
+                break;
+            case 10:
+                if (this.textNum == 0)
+                {
+                    this.StartCoroutine(this.manager.GameClear(this.GetComponent<TextController>()));
+                }
+                break;
         }
+
         this.isEvent = false;
     }
 }

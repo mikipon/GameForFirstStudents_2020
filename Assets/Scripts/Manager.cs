@@ -23,11 +23,11 @@ public class Manager : MonoBehaviour
     public List<GameObject> currentEnemies = new List<GameObject>();//現ステージ残存エネミー
     StickerManager stManager;
     Player player;
-    NextStageAnim blackAnim;
+    public NextStageAnim blackAnim;
     SpriteRenderer spriteRenderer;
     public AudioClip[] sounds;
     AudioSource audioSource;
-    string[][] sentences = new string[3][];
+    string[][] sentences = new string[4][];
     // Start is called before the first frame update
     void Start()
     {
@@ -43,8 +43,8 @@ public class Manager : MonoBehaviour
 
         this.sentences[0] = new string[3];
         this.sentences[0][0] = "探しものをマウスでクリックして見つけよう！\n合っていれば攻撃できるぞ";
-        this.sentences[0][1] = "敵の攻撃時間に注意しよう";
-        this.sentences[0][2] = "出発だ";
+        this.sentences[0][1] = "敵は一定時間で攻撃してくる！\n注意しよう";
+        this.sentences[0][2] = "さぁ出発だ";
 
         this.DisplayText(0);
 
@@ -54,13 +54,18 @@ public class Manager : MonoBehaviour
         this.sentences[2] = new string[2];//文増やすならTextControllerのイベントプログラムを変更する必要あり、Manager上のisNextText変数への代入も
         this.sentences[2][0] = "何とか無事に森を抜けられそうだ\nTo be continued?";
         this.sentences[2][1] = "「ゲームクリア」\nマウス左クリックでタイトルに戻る";
+
+        this.sentences[3] = new string[3];//文増やすならTextControllerのイベントプログラムを変更する必要あり、Manager上のisNextText変数への代入も
+        this.sentences[3][0] = "もうすぐ森を抜けられそうだな";
+        this.sentences[3][1] = "・・・？";
+        this.sentences[3][2] = "何かヤバそうな奴がいるぞ！？";
     }
 
     // Update is called once per frame
     void Update()
     {
         if(action) this.ObjectSelection();
-        switch (fase)
+        switch (fase)//faseの数字をずらした場合NextStageAnimへの反映を忘れない
         {
             case 0:
                 //テキストが終わり次第、次のフェーズに進む
@@ -73,7 +78,6 @@ public class Manager : MonoBehaviour
                 fase++;
                 break;
             case 2://戦闘フェーズ
-                
                 break;
             case 3:
                 blackAnim.isFadeIn = true;
@@ -82,24 +86,30 @@ public class Manager : MonoBehaviour
                 fase++;
                 break;
             case 4://戦闘フェーズ
-
                 break;
             case 5:
+                this.DisplayText(3);
+                this.blackAnim.audioSource.Stop();
+                fase++;
+                break;
+            case 6://警告音とテキストが表示されている
+                break;
+            case 7:
                 blackAnim.isFadeIn = true;
                 this.spriteRenderer.sprite = this.BackgroundList[2];
                 this.CreateEnemy(this.enemyList[3], this.enemyList[4], this.enemyList[2]);
                 fase++;
                 break;
-            case 6://戦闘フェーズ
+            case 8://戦闘フェーズ
 
                 break;
-            case 7:
+            case 9:
                 //print("finish");
                 this.DisplayText(2);
                 TextController.isNextText = false;
                 fase++;
                 break;
-            case 8:
+            case 10:
                 break;
         }
     }
