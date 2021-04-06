@@ -72,14 +72,17 @@ public class Player : Status
     {
         enemy.GetComponent<SpriteRenderer>().color = Color.red;
         Vector3 temp = enemy.transform.position;
+
         for (int i = 0; i < 10; i++)
         {
             enemy.transform.position = temp + new Vector3(0.05f, 0);
+
             yield return new WaitForSeconds(0.02f);
             enemy.transform.position = temp - new Vector3(0.05f, 0);
             yield return new WaitForSeconds(0.02f);
         }
         enemy.transform.position = temp;
+            
         enemy.GetComponent<SpriteRenderer>().color = Color.white;
 
         //ステッカーのリセットorデリート

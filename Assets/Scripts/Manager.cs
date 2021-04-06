@@ -65,7 +65,7 @@ public class Manager : MonoBehaviour
     void Update()
     {
         if(action) this.ObjectSelection();
-        switch (fase)//faseの数字をずらした場合NextStageAnimへの反映を忘れない
+        switch (fase)//faseの数字をずらした場合NextStageAnim,TextControllerへの反映を忘れない
         {
             case 0:
                 //テキストが終わり次第、次のフェーズに進む

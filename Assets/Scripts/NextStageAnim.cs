@@ -18,6 +18,7 @@ public class NextStageAnim : MonoBehaviour
     StickerManager stManager;
     //public AudioClip sound;
     public AudioSource audioSource;
+    public GameObject lastFaseAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +61,14 @@ public class NextStageAnim : MonoBehaviour
             isFadeIn = false;
             //fadeImage.enabled = false;  //パネル表示オフ
             //Manager.action = true;ステッカーが配置し終わったら
-
-            this.stManager.ResetSticker();
+            if(Manager.fase == 8)
+            {
+                Instantiate(this.lastFaseAnim);//生成先でResetSticker()を呼び出す
+            }
+            else
+            {
+                this.stManager.ResetSticker();
+            }
             this.fadeStart = true;  
         }
     }

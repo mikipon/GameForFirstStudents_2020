@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyTimer.cs" />
     <Compile Include="Assets\Scripts\HitPoint.cs" />
+    <Compile Include="Assets\Scripts\LastFaseAnimation.cs" />
     <Compile Include="Assets\Scripts\Manager.cs" />
     <Compile Include="Assets\Scripts\NextStageAnim.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
