@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  power: 50
+  power: 25
   targettingMark: {fileID: 361303351429004172}
   sound: {fileID: 8300000, guid: a315921c6b6093646a5e7c3cd62a23e3, type: 3}
 --- !u!1 &1454754899

@@ -95,17 +95,19 @@ public class StickerManager : MonoBehaviour
         Manager.action = true;
         Manager.isStickerClick = true;
     }
-    public void DeletSticker()//ゲーム上のステッカー全削除、落とすだけ（お題含む）
+    public IEnumerator DeletSticker()//ゲーム上のステッカー全削除、落とすだけ（お題含む）
     {
         //Manager.isStickerClick = false;//Playerが攻撃した時に変更
         this.audioSource.volume = 1;
-        this.audioSource.PlayOneShot(this.sounds[1]);
         for (int i = 0; i < this.distributedObj.Count; i++)
         {
             this.distributedObj[i].GetComponent<Rigidbody2D>().gravityScale = 1;
             this.distributedObj[i].GetComponent<Rigidbody2D>().AddForce(Vector2.up * 3, ForceMode2D.Impulse);
             this.distributedObj[i].GetComponent<Sticker>().stickeNumber = -2;
             //Destroy(this.distributedObj[i]);
+            this.audioSource.PlayOneShot(this.sounds[1]);
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
     bool CheckDestroy()//ステッカーが全て破壊されたかチェックする。されていればListをクリアする。
@@ -119,7 +121,7 @@ public class StickerManager : MonoBehaviour
     }
     public void ResetSticker()//ステッカーを再配置したい時に呼び出すメソッド
     {
-        if(!this.CheckDestroy())this.DeletSticker();//ステッカーがない状態から配置するときはいらない
+        if(!this.CheckDestroy()) this.StartCoroutine(this.DeletSticker());//ステッカーがない状態から配置するときはいらない
         this.isDistributeSticker = true;
     }
     /// <summary>

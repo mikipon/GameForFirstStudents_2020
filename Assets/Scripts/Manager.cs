@@ -180,29 +180,33 @@ public class Manager : MonoBehaviour
     }
     public void DefaultTargetting()//デフォルトやターゲットしていた敵が死んだ時は左から順々に狙う、敵がいなければfaseを進める
     {
-        if (!CheckLivingEnemy())//敵が全滅してたら
+        int num = this.CheckLivingEnemy();
+        if (num == -1)//敵が全滅してたら
         {
             Player.target = 0;
             //print("finish");
 
             blackAnim.isFadeOut = true;//フェードアウトしてからフェーズを進める
         }
+        else
+        {
+            Player.target = num;
+        }
     }
     /// <summary>
     /// 敵の残存をチェック
     /// </summary>
-    /// <returns true> 生きてる敵がいる</returns　false>生きている敵はいない
-    public bool CheckLivingEnemy()//
+    /// <returns>-1なら全滅</returns>
+    public int CheckLivingEnemy()//
     {
         for (int i = 0; i < this.currentEnemies.Count; i++)
         {
             if (this.currentEnemies[i] != null)
             {
-                Player.target = i;
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
     IEnumerator IncorrectSound()
     {

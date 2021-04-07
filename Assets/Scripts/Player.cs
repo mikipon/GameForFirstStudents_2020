@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Status
 {
-    public static int target = 0;//攻撃する敵の番号
+    public static int target;//攻撃する敵の番号
     public GameObject targettingMark;//Unityから代入
     Manager manager;
     StickerManager stManager;
@@ -86,13 +86,13 @@ public class Player : Status
         enemy.GetComponent<SpriteRenderer>().color = Color.white;
 
         //ステッカーのリセットorデリート
-        if (manager.CheckLivingEnemy())
+        if (manager.CheckLivingEnemy() != -1)
         {
             this.stManager.ResetSticker();//敵が全滅してたらリセットしない(エネミー側がやってくれるDeffautTargetting)
         }
         else
         {
-            this.stManager.DeletSticker();//ステッカーの破壊だけ行い、配置はしない
+            this.StartCoroutine(this.stManager.DeletSticker());//ステッカーの破壊だけ行い、配置はしない
         }
     }
 }
