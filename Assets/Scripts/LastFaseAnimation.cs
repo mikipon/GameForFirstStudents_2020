@@ -12,14 +12,14 @@ public class LastFaseAnimation : MonoBehaviour
     {
         this.stManager = GameObject.Find("Manager").GetComponent<StickerManager>();
         this.rig = this.GetComponent<Rigidbody2D>();
-        this.rig.velocity = new Vector2(10, 0);
+        this.rig.velocity = new Vector2(-10, 0);
         this.audioSource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(this.transform.position.x > 20)
+        if(this.transform.position.x < -20)
         {
             Destroy(this.gameObject);
             this.stManager.ResetSticker();

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 50
-  power: 10
+  power: 5
   attackTime: 15
   number: 0
 --- !u!61 &5278941655011564607

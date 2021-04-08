@@ -153,13 +153,13 @@ public class Manager : MonoBehaviour
                         if (hit.transform.GetComponent<Enemy>())
                         {
                             Player.target = hit.transform.GetComponent<Enemy>().number;//クリックしたエネミーをPlayerの攻撃対象とする
-                            print("ターゲット： " + Player.target);
+                            //print("ターゲット： " + Player.target);
                         }
                         break;
                     case 9:
                         if (hit.transform.GetComponent<Sticker>() && isStickerClick)
                         {
-                            print("選択したスティッカー： " + hit.transform.GetComponent<Sticker>().stickeNumber);
+                            //print("選択したスティッカー： " + hit.transform.GetComponent<Sticker>().stickeNumber);
                             if (this.stManager.CompareSticker(hit.transform.GetComponent<Sticker>().stickeNumber))
                             {
                                 this.player.Attack();

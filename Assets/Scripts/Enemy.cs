@@ -9,6 +9,7 @@ public class Enemy : Status
     public int number;//ターゲット管理用Listの位置番号
     float attackTimer = 0;
     float fallTimer = 0;
+    bool bossTatgettingTiming;
     Manager manager;
     Player player;
     Image panelImage;
@@ -20,6 +21,7 @@ public class Enemy : Status
         this.player = GameObject.Find("Player").GetComponent<Player>();
         this.panelImage = GameObject.Find("Canvas").transform.GetChild(0).GetComponent<Image>();
         this.audioSource = this.GetComponent<AudioSource>();
+        this.bossTatgettingTiming = true;
     }
 
     // Update is called once per frame
@@ -44,13 +46,12 @@ public class Enemy : Status
             this.audioSource.volume = 0.5f;
             this.audioSource.PlayOneShot(this.audioSource.clip);
 
-            print("プレイヤーHP： " + this.player.hp);
+            //print("プレイヤーHP： " + this.player.hp);
         }
     }
     void Deth()//hpが0以下で破壊、自動的に他のエネミーへターゲットを変更する
     {
         this.manager.currentEnemies[this.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
-
         //子オブジェクトを全て削除
         foreach (Transform child in this.gameObject.transform)
             Destroy(child.gameObject);
@@ -60,20 +61,41 @@ public class Enemy : Status
         //ボスの死に方
         if (this.tag == "Boss")
         {
+            //this.manager.currentEnemies[this.number] = null;//破壊する枠を置き換える(List配列の収納番号がずれないように)
+
             //回転と移動
             Rigidbody2D rigidbody2D = this.GetComponent<Rigidbody2D>();
             rigidbody2D.angularVelocity = 1000;
             this.transform.position += new Vector3(1, 1, 0) * 0.2f;
 
-            //画面外に出たら
-            if(!GetComponent<Renderer>().isVisible)
-                this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
+            if(Manager.fase == 8 && manager.CheckLivingEnemy() == -1)
+            {
+                //画面外に出たら
+                if (!GetComponent<Renderer>().isVisible)
+                {
+                    this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
+                }
+            }
+            else
+            {
+                if (this.bossTatgettingTiming)
+                {
+                    this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
+                    this.bossTatgettingTiming = false;
+                }
+            }
+            if(!GetComponent<Renderer>().isVisible) Destroy(this.gameObject);
         }
         else {
 
             //点滅
             beforeFalling();
-
+            //死んですぐにデフォルトターゲティングしたい かつ　最後に死んだ敵じゃない時
+            //print(manager.CheckLivingEnemy());
+            if (this.fallTimer == 0 && manager.CheckLivingEnemy() != -1)
+            {
+                this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
+            }
             //1.5秒点滅した後に破壊
             this.fallTimer += Time.deltaTime;
             if (this.fallTimer >= 1.5)
@@ -81,8 +103,9 @@ public class Enemy : Status
                 Destroy(this.gameObject);
                 this.fallTimer = 0;
 
-                this.manager.DefaultTargetting();//他にターゲットするエネミーがいなければステッカーを削除して次のフェーズへ
+                if(manager.CheckLivingEnemy() == -1) this.manager.DefaultTargetting();
             }
+            
         }
         //print(this.name + "死亡");
     }

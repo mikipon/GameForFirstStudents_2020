@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 50
   power: 10
-  attackTime: 20
+  attackTime: 25
   number: 0
 --- !u!61 &7142209559548693510
 BoxCollider2D:

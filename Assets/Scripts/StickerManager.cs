@@ -51,7 +51,7 @@ public class StickerManager : MonoBehaviour
         this.audioSource.volume = 0.2f;
         this.audioSource.PlayOneShot(this.sounds[0]);
 
-        print("お題： " + theme);
+        //print("お題： " + theme);
     }
     /// <summary>
     /// ステッカーを配置
